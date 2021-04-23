@@ -237,10 +237,11 @@ func createSegment(s string) (segment, error) {
 	if s == "{*}" {
 		return segmentcatchallstring{}, nil
 	} else if strings.Contains(s, "{") {
-		if strings.HasPrefix(s, "{") && strings.HasSuffix(s, "}") && !strings.Contains(s, ":") {
-			return newSegmentAny(s), nil
-		}
-		return NewSegmentRegex(s)
+		// if strings.HasPrefix(s, "{") && strings.HasSuffix(s, "}") && !strings.Contains(s, ":") {
+		// 	return newSegmentAny(s), nil
+		// }
+		// return NewSegmentRegex(s)
+		return newSearchNode(s)
 	} else {
 		return segmentstring(s), nil
 	}

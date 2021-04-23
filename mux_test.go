@@ -32,7 +32,7 @@ func TestAddGetUser(t *testing.T) {
 	router.ServeHTTP(rw, req)
 	resp := rw.Result()
 	if resp.StatusCode != 200 {
-		t.Fatal("Must return 200")
+		t.Fatal("Must return 200 but returned", resp.StatusCode)
 	}
 	defer resp.Body.Close()
 
@@ -48,7 +48,7 @@ func TestAddGetUser(t *testing.T) {
 	if rw.Code != http.StatusMethodNotAllowed {
 		t.Fatal("Must be method not allowed")
 	}
-	if rw.Result().Header.Get("Allow") != "GET,HEAD" && rw.HeaderMap.Get("Allow") != "HEAD,GET" {
+	if rw.Result().Header.Get("Allow") != "GET,HEAD" && rw.Result().Header.Get("Allow") != "HEAD,GET" {
 		t.Fatal("Expect GET,HEAD allowed")
 	}
 	if len(strings.Split(rw.Result().Header.Get("Allow"), ",")) != 2 {
